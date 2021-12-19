@@ -10,8 +10,16 @@ config_version=4
 
 [application]
 
-config/name="Godot Life 2021"
+config/name="December 2021"
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/resizable=false
+window/dpi/allow_hidpi=true
 
 [physics]
 
