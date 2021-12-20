@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "ColorRect",
+"class": "Cell",
+"language": "GDScript",
+"path": "res://Cell.gd"
+} ]
+_global_script_class_icons={
+"Cell": ""
+}
+
 [application]
 
 config/name="December 2021"
@@ -16,10 +26,9 @@ config/icon="res://icon.png"
 
 [display]
 
-window/size/width=1920
-window/size/height=1080
+window/size/width=960
+window/size/height=540
 window/size/resizable=false
-window/dpi/allow_hidpi=true
 
 [physics]
 
