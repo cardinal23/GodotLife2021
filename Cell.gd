@@ -5,6 +5,9 @@ class_name Cell
 enum State {ALIVE, DEAD}
 export(State) var state = State.DEAD
 
+var position: Vector2
+onready var positionLabel = $PositionLabel
+
 func _ready():
     pass # Replace with function body.
     
@@ -27,6 +30,9 @@ func toggledState():
         return State.ALIVE
 
 func update():
+    var positionString = "%s,%s"
+    positionLabel.text = positionString % [position.x, position.y]
+    
     match state:
         State.ALIVE:
             color = Color(0.188235, 0.364706, 0.529412)

@@ -25,6 +25,7 @@ func _init():
             var position = Vector2(x,y)
             
             cells[position] = cell
+            cell.position = position
             cellUpdates[position] = cell.state
             
             cell.rect_position = Vector2(
