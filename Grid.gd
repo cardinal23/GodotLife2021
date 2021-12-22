@@ -1,14 +1,19 @@
 extends Node2D
 
-var tick = 0
 var Cell = preload("res://Cell.tscn")
 
 var cell_size := 40
 var grid_size: Vector2
 
+# Stores the Cell objects, indexed by a Vector2 position
 var cells: Dictionary
 
+# Stores cell state updates to be made on the next update pass,
+# indexed by a Vector2 position
+var cellUpdates: Dictionary
+
 func _init():
+    # Find how many cells can fit the screen size
     var size = Vector2(1920, 1080)
     grid_size.x = size.x / cell_size
     grid_size.y = size.y / cell_size
@@ -17,7 +22,10 @@ func _init():
     for y in range(0, grid_size.y):
         for x in range(0, grid_size.x):
             var cell = Cell.instance()
-            cells[Vector2(x,y)] = cell
+            var position = Vector2(x,y)
+            
+            cells[position] = cell
+            cellUpdates[position] = cell.state
             
             cell.rect_position = Vector2(
                 x * cell_size,
@@ -35,14 +43,48 @@ func _input(event):
             )
             
             var cell = cells[cell_position]
-            cell.toggleState()
-            cell.update()
+            var nextState = cell.toggledState()
+            cellUpdates[cell_position] = nextState
+            updateVisuals()
             
-            
-func update():
-    for cell in cells.values():
+func updateState():
+    # Find number of neighbors and set next state       
+    for key in cells:
+        var livingNeighborCount: int = findLivingNeighborsCount(key)
+    
+func updateVisuals():    
+    for key in cellUpdates.keys():
+        var nextState = cellUpdates[key]
+        var cell: Cell = cells[key]
+        cell.state = nextState
         cell.update() 
 
-
 func _on_Main_update():
-    update()
+    updateState()
+    updateVisuals()
+    
+func findLivingNeighborsCount(position: Vector2):
+    var neighborPositions = [
+        Vector2(position.x - 1, position.y - 1),
+        Vector2(position.x, position.y - 1),
+        Vector2(position.x + 1, position.y - 1),
+        Vector2(position.x - 1, position.y),
+        Vector2(position.x + 1, position.y),
+        Vector2(position.x - 1, position.y + 1),
+        Vector2(position.x, position.y + 1),
+        Vector2(position.x + 1, position.y + 1)
+    ]
+    
+    var livingNeighborCount = 0
+    
+    for neighborPosition in neighborPositions:
+        if cells.has(neighborPosition):    
+            var neighborCell: Cell = cells[neighborPosition]
+            if neighborCell.isAlive():
+                livingNeighborCount += 1
+            
+    #if livingNeighborCount > 0:
+    #    print(position, " has ", livingNeighborCount, " neighbors")
+        
+    return livingNeighborCount
+        

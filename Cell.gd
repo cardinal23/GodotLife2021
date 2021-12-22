@@ -8,17 +8,23 @@ export(State) var state = State.DEAD
 func _ready():
     pass # Replace with function body.
     
+func isAlive():
+    return state == State.ALIVE
+    
+func isDead():
+    return state == State.DEAD
+    
 func markAsAlive():
     state = State.ALIVE
     
 func markAsDead():
     state = State.DEAD
-    
-func toggleState():
+         
+func toggledState():
     if state == State.ALIVE:
-        state = State.DEAD
+        return State.DEAD
     elif state == State.DEAD:
-        state = State.ALIVE
+        return State.ALIVE
 
 func update():
     match state:

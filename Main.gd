@@ -12,7 +12,7 @@ func _init():
     pass
     
 func _ready():
-    grid.update()
+    grid.updateVisuals()
     
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
