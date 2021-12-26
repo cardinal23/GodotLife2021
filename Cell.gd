@@ -6,7 +6,10 @@ enum State {ALIVE, DEAD}
 export(State) var state = State.DEAD
 
 var position: Vector2
+var neighborCount := 0
+
 onready var positionLabel = $PositionLabel
+onready var neighborLabel = $NeighborLabel
 
 func _ready():
     pass # Replace with function body.
@@ -32,6 +35,7 @@ func toggledState():
 func update():
     var positionString = "%s,%s"
     positionLabel.text = positionString % [position.x, position.y]
+    neighborLabel.text = String(neighborCount)
     
     match state:
         State.ALIVE:

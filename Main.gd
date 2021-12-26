@@ -2,6 +2,7 @@ extends Node
 
 var tick = 0
 var clock = 0
+var isPaused := false
 
 onready var grid := $Grid
 onready var clockLabel := $ClockLabel
@@ -16,6 +17,9 @@ func _ready():
     
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+    if isPaused:
+        return 
+        
     tick += delta
     
     if tick > 1:

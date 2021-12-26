@@ -37,7 +37,7 @@ func _init():
 func _input(event):
     if event is InputEventMouseButton:
         if event.pressed:
-            print("Mouse click at: ", event.position)
+            # print("Mouse click at: ", event.position)
             var cell_position = Vector2(
                 int(event.position.x / cell_size),
                 int(event.position.y / cell_size)
@@ -46,12 +46,15 @@ func _input(event):
             var cell = cells[cell_position]
             var nextState = cell.toggledState()
             cellUpdates[cell_position] = nextState
+            updateState()
             updateVisuals()
             
 func updateState():
     # Find number of neighbors and set next state       
     for key in cells:
         var livingNeighborCount: int = findLivingNeighborsCount(key)
+        var cell: Cell = cells[key]
+        cell.neighborCount = livingNeighborCount
     
 func updateVisuals():    
     for key in cellUpdates.keys():
