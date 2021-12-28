@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Cell",
 "language": "GDScript",
 "path": "res://Cell.gd"
+}, {
+"base": "Resource",
+"class": "Global",
+"language": "GDScript",
+"path": "res://Global.gd"
 } ]
 _global_script_class_icons={
-"Cell": ""
+"Cell": "",
+"Global": ""
 }
 
 [application]

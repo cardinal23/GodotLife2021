@@ -46,7 +46,6 @@ func _input(event):
             var cell = cells[cell_position]
             var nextState = cell.toggledState()
             cellUpdates[cell_position] = nextState
-            updateState()
             updateVisuals()
             
 func updateState():
@@ -55,7 +54,16 @@ func updateState():
         var livingNeighborCount: int = findLivingNeighborsCount(key)
         var cell: Cell = cells[key]
         cell.neighborCount = livingNeighborCount
-    
+
+        if livingNeighborCount < 2:
+            cellUpdates[key] = Global.CellState.DEAD
+            
+        if livingNeighborCount == 3:
+            cellUpdates[key] = Global.CellState.ALIVE
+            
+        if livingNeighborCount > 3:
+            cellUpdates[key] = Global.CellState.DEAD
+                    
 func updateVisuals():    
     for key in cellUpdates.keys():
         var nextState = cellUpdates[key]

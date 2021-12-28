@@ -2,7 +2,7 @@ extends Node
 
 var tick = 0
 var clock = 0
-var isPaused := false
+var isPaused := true
 
 onready var grid := $Grid
 onready var clockLabel := $ClockLabel
@@ -18,6 +18,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
     if isPaused:
+        updateUI()
         return 
         
     tick += delta
@@ -25,10 +26,21 @@ func _process(delta):
     if tick > 1:
         tick -= 1
         clock += 1
-        clockLabel.text = String(clock)
         emit_signal("update")
+        updateUI()
+
     
-func _input(_event):
-    pass            
+func _input(event):
+    if event is InputEventKey:
+        if event.pressed and event.scancode == KEY_ESCAPE:
+            get_tree().quit()  
+        if event.pressed and event.scancode == KEY_SPACE:
+            isPaused = !isPaused
+            
+func updateUI():
+    if isPaused:
+        clockLabel.text = "Paused"
+    else:
+        clockLabel.text = String(clock)  
             
     

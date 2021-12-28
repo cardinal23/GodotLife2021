@@ -13,7 +13,7 @@ margin_left = 5.0
 margin_top = 5.0
 margin_right = 40.0
 margin_bottom = 14.0
-text = "0"
+text = "Paused"
 __meta__ = {
 "_edit_use_anchors_": false
 }
