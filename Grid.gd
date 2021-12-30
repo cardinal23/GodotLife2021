@@ -92,11 +92,8 @@ func findLivingNeighborsCount(position: Vector2):
     for neighborPosition in neighborPositions:
         if cells.has(neighborPosition):    
             var neighborCell: Cell = cells[neighborPosition]
-            if neighborCell.isAlive():
+            if neighborCell.state == Global.CellState.ALIVE:
                 livingNeighborCount += 1
-            
-    #if livingNeighborCount > 0:
-    #    print(position, " has ", livingNeighborCount, " neighbors")
-        
+              
     return livingNeighborCount
         

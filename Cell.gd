@@ -9,15 +9,6 @@ var neighborCount := 0
 
 onready var positionLabel = $PositionLabel
 onready var neighborLabel = $NeighborLabel
-
-func _ready():
-    pass # Replace with function body.
-    
-func isAlive():
-    return state == Global.CellState.ALIVE
-    
-func isDead():
-    return state == Global.CellState.DEAD
          
 func toggledState():
     if state == Global.CellState.ALIVE:
